@@ -1,0 +1,28 @@
+<%- include("../includes/header.ejs", {title:"Resume - View All"}); %>
+
+<h1>Resume</h1>
+<a href="/resume/add">Add New Resume</a> <br />
+
+<br />
+
+<table border="1">
+    <tr><th>Resume Name</th><th>Account</th><th>Action</th></tr>
+    <% for (var i = 0; result.length > i; i++) { %>
+    <tr>
+        <td><a href="/resume/?resume_id= <%= result[i].resume_id %>"><%=result[i].resume_name%></a></td>
+        <td><a href="/account/?account_id= <%= result[i].account_id %>"><%=result[i].first_name + ' ' + result[i].last_name%></a></td>
+
+        <!--- button! Edit + Delete--->
+
+        <td>
+            <button onclick="event.preventDefault();window.location.href='/company/edit/?company_id=<%= result[i].company_id %>'">Edit</button>
+
+            <form action="/resume/delete/" style="display:inline">
+                <input type="hidden" name="resume_id" id="resume_id" value="<%= result[i].resume_id %>" />
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+    <% } %>
+</table>
+<%- include("../includes/footer.ejs"); %>
