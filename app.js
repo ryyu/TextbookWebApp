@@ -13,6 +13,9 @@ var company = require('./routes/company_routes');
 var address = require('./routes/address_routes');
 var skill = require('./routes/skill_routes');
 
+var textbook = require('./routes/textbook_routes');
+var vendor = require('./routes/vendor_routes');
+
 var app = express();
 
 // view engine setup
@@ -35,6 +38,9 @@ app.use('/resume', resume);
 app.use('/company', company);
 app.use('/address', address);
 app.use('/skill', skill);
+
+app.use('/textbook', textbook);
+app.use('/vendor', vendor);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

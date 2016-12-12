@@ -1,5 +1,5 @@
 var mysql   = require('mysql');
-var db  = require('./db_connection.js');
+var db  = require('./../../../Downloads/TextbookWebApp-master/model/db_connection.js');
 
 /* DATABASE CONFIGURATION */
 var connection = mysql.createConnection(db.config);
@@ -12,19 +12,16 @@ var connection = mysql.createConnection(db.config);
  */
 
 exports.getAll = function(callback) {
-    var query = 'SELECT * FROM company;';
+    var query = 'SELECT * FROM vendor;';
 
     connection.query(query, function(err, result) {
         callback(err, result);
     });
 };
 
-exports.getById = function(company_id, callback) {
-    var query = 'SELECT c.*, a.street, a.zip_code FROM company c ' +
-        'LEFT JOIN company_address ca on ca.company_id = c.company_id ' +
-        'LEFT JOIN address a on a.address_id = ca.address_id ' +
-        'WHERE c.company_id = ?';
-    var queryData = [company_id];
+exports.getById = function(vendor_id, callback) {
+    var query = 'SELECT * FROM vendor WHERE vendor_id = ?';
+    var queryData = [vendor_id];
     console.log(query);
 
     connection.query(query, queryData, function(err, result) {
@@ -33,6 +30,27 @@ exports.getById = function(company_id, callback) {
     });
 };
 
+/*
+ create or replace view vendor_prices as
+ SELECT vt.* , v.vendor_name FROM vendor_textbook vt
+ JOIN vendor v ON v.vendor_id = vt.vendor_id;
+ */
+
+
+//DOES NOT WORK. MAKE INTO A VIEW
+exports.getPrices = function(vendor_id, callback) {
+    var query = 'SELECT * FROM vendor_prices WHERE textbook_id = ?';
+    // var query = 'SELECT vt.* , v.vendor_name FROM vendor_textbook vt' +
+    //     'JOIN vendor v ON v.vendor_id = vt.vendor_id' +
+    //     'WHERE vt.textbook_id = ?';
+    var queryData = [vendor_id];
+    console.log(query);
+
+    connection.query(query, queryData, function(err, result) {
+
+        callback(err, result);
+    });
+};
 
 exports.insert = function(params, callback) {
 
@@ -71,35 +89,35 @@ exports.insert = function(params, callback) {
 
 };
 /*
-exports.insert = function(params, callback) {
+ exports.insert = function(params, callback) {
 
-    // FIRST INSERT THE COMPANY
-    var query = 'INSERT INTO company (company_name) VALUES (?)';
+ // FIRST INSERT THE COMPANY
+ var query = 'INSERT INTO company (company_name) VALUES (?)';
 
-    var queryData = [params.company_name];
+ var queryData = [params.company_name];
 
-    connection.query(query, params.company_name, function(err, result) {
+ connection.query(query, params.company_name, function(err, result) {
 
-        // THEN USE THE COMPANY_ID RETURNED AS insertId AND THE SELECTED ADDRESS_IDs INTO COMPANY_ADDRESS
-        var company_id = result.insertId;
+ // THEN USE THE COMPANY_ID RETURNED AS insertId AND THE SELECTED ADDRESS_IDs INTO COMPANY_ADDRESS
+ var company_id = result.insertId;
 
-        // NOTE THAT THERE IS ONLY ONE QUESTION MARK IN VALUES ?
-        var query = 'INSERT INTO company_address (company_id, address_id) VALUES ?';
+ // NOTE THAT THERE IS ONLY ONE QUESTION MARK IN VALUES ?
+ var query = 'INSERT INTO company_address (company_id, address_id) VALUES ?';
 
-        // TO BULK INSERT RECORDS WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
-        var companyAddressData = [];
-        for(var i=0; i < params.address_id.length; i++) {
-            companyAddressData.push([company_id, params.address_id[i]]);
-        }
+ // TO BULK INSERT RECORDS WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
+ var companyAddressData = [];
+ for(var i=0; i < params.address_id.length; i++) {
+ companyAddressData.push([company_id, params.address_id[i]]);
+ }
 
-        // NOTE THE EXTRA [] AROUND companyAddressData
-        connection.query(query, [companyAddressData], function(err, result){
-            callback(err, result);
-        });
-    });
+ // NOTE THE EXTRA [] AROUND companyAddressData
+ connection.query(query, [companyAddressData], function(err, result){
+ callback(err, result);
+ });
+ });
 
-};
-*/
+ };
+ */
 exports.delete = function(company_id, callback) {
     var query = 'CALL company_delete(?)';
     var queryData = [company_id];
@@ -162,23 +180,23 @@ exports.update = function(params, callback) {
 };
 
 /*  Stored procedure used in this example
-     DROP PROCEDURE IF EXISTS company_getinfo;
+ DROP PROCEDURE IF EXISTS company_getinfo;
 
-     DELIMITER //
-     CREATE PROCEDURE company_getinfo (_company_id int)
-     BEGIN
+ DELIMITER //
+ CREATE PROCEDURE company_getinfo (_company_id int)
+ BEGIN
 
-     SELECT * FROM company WHERE company_id = _company_id;
+ SELECT * FROM company WHERE company_id = _company_id;
 
-     SELECT a.*, s.company_id FROM address a
-     LEFT JOIN company_address s on s.address_id = a.address_id AND company_id = _company_id
-     ORDER BY a.street, a.zip_code;
+ SELECT a.*, s.company_id FROM address a
+ LEFT JOIN company_address s on s.address_id = a.address_id AND company_id = _company_id
+ ORDER BY a.street, a.zip_code;
 
-     END //
-     DELIMITER ;
+ END //
+ DELIMITER ;
 
-     # Call the Stored Procedure
-     CALL company_getinfo (4);
+ # Call the Stored Procedure
+ CALL company_getinfo (4);
 
  */
 

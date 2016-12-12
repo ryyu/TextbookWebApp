@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var company_dal = require('../model/company_dal');
-var address_dal = require('../model/address_dal');
+var vendor_dal = require('../model/vendor_dal');
+//var address_dal = require('../model/address_dal');
 
 
 // View All companys
 router.get('/all', function(req, res) {
-    company_dal.getAll(function(err, result){
+    vendor_dal.getAll(function(err, result){
         if(err) {
             res.send(err);
         }
         else {
-            res.render('company/companyViewAll', { 'result':result });
+            res.render('vendor/vendorViewAll', { 'result':result });
         }
     });
 
@@ -19,17 +19,17 @@ router.get('/all', function(req, res) {
 
 // View the company for the given id
 router.get('/', function(req, res){
-    if(req.query.company_id == null) {
-        res.send('company_id is null');
+    if(req.query.vendor_id == null) {
+        res.send('vendor_id is null');
     }
     else {
-        company_dal.getById(req.query.company_id, function(err,result) {
-           if (err) {
-               res.send(err);
-           }
-           else {
-               res.render('company/companyViewById', {'result': result});
-           }
+        vendor_dal.getById(req.query.vendor_id, function(err,result) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                res.render('vendor/vendorViewById', {'result': result});
+            }
         });
     }
 });
@@ -85,22 +85,22 @@ router.get('/edit', function(req, res){
 });
 
 router.get('/edit2', function(req, res){
-   if(req.query.company_id == null) {
-       res.send('A company id is required');
-   }
-   else {
-       company_dal.getById(req.query.company_id, function(err, company){
-           address_dal.getAll(function(err, address) {
-               res.render('company/companyUpdate', {company: company[0], address: address});
-           });
-       });
-   }
+    if(req.query.company_id == null) {
+        res.send('A company id is required');
+    }
+    else {
+        company_dal.getById(req.query.company_id, function(err, company){
+            address_dal.getAll(function(err, address) {
+                res.render('company/companyUpdate', {company: company[0], address: address});
+            });
+        });
+    }
 
 });
 
 router.get('/update', function(req, res) {
     company_dal.update(req.query, function(err, result){
-       res.redirect(302, '/company/all');
+        res.redirect(302, '/company/all');
     });
 });
 
@@ -110,15 +110,15 @@ router.get('/delete', function(req, res){
         res.send('company_id is null');
     }
     else {
-         company_dal.delete(req.query.company_id, function(err, result){
-             if(err) {
-                 res.send(err);
-             }
-             else {
-                 //poor practice, but we will handle it differently once we start using Ajax
-                 res.redirect(302, '/company/all');
-             }
-         });
+        company_dal.delete(req.query.company_id, function(err, result){
+            if(err) {
+                res.send(err);
+            }
+            else {
+                //poor practice, but we will handle it differently once we start using Ajax
+                res.redirect(302, '/company/all');
+            }
+        });
     }
 });
 
