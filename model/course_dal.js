@@ -12,29 +12,16 @@ var connection = mysql.createConnection(db.config);
  */
 
 exports.getAll = function(callback) {
-    var query = 'SELECT * FROM textbook;';
+    var query = 'SELECT * FROM course;';
 
     connection.query(query, function(err, result) {
         callback(err, result);
     });
 };
 
-/*
- create or replace view textbook_authors as
- SELECT a.*, t.title, t.ISBN, t.edition FROM authors a
- JOIN textbook t on a.textbook_id = t.textbook_id;
- */
-
-
-exports.getById = function(textbook_id, callback) {
-    var query = 'SELECT * FROM textbook_authors WHERE textbook_id = ?';
-    // var query = 'SELECT a.*, t.title, t.ISBN, t.edition FROM authors a ' +
-    //     'LEFT JOIN textbook t on a.textbook_id = t.textbook_id' +
-    //     'WHERE a.textbook_id = ?';
-    // var query = 'SELECT t.*, a.author FROM textbook t' +
-    //     'JOIN authors a ON a.textbook_id = t.textbook_id' +
-    //     ' WHERE textbook_id = ?';
-    var queryData = [textbook_id];
+exports.getById = function(course_id, callback) {
+    var query = 'SELECT * FROM course WHERE course_id = ?';
+    var queryData = [course_id];
     console.log(query);
 
     connection.query(query, queryData, function(err, result) {
@@ -43,6 +30,27 @@ exports.getById = function(textbook_id, callback) {
     });
 };
 
+/*
+ create or replace view vendor_prices as
+ SELECT vt.* , v.vendor_name FROM vendor_textbook vt
+ JOIN vendor v ON v.vendor_id = vt.vendor_id;
+ */
+
+
+//DOES NOT WORK. MAKE INTO A VIEW
+exports.getPrices = function(vendor_id, callback) {
+    var query = 'SELECT * FROM vendor_prices WHERE textbook_id = ?';
+    // var query = 'SELECT vt.* , v.vendor_name FROM vendor_textbook vt' +
+    //     'JOIN vendor v ON v.vendor_id = vt.vendor_id' +
+    //     'WHERE vt.textbook_id = ?';
+    var queryData = [vendor_id];
+    console.log(query);
+
+    connection.query(query, queryData, function(err, result) {
+
+        callback(err, result);
+    });
+};
 
 exports.insert = function(params, callback) {
 

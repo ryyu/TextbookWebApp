@@ -1,0 +1,11 @@
+<%- include("../includes/header.ejs", {title:"Course - " + result[0].class_name}); %>
+<h1>Courses</h1>
+<ul>
+    <li>Course Name: <%= result[0].class_name %></li>
+    <li>Course Number: <%= result[0].class_number %></li>
+    <li>Instructor: <%= result[0].instructor %></li>
+    <li><a href="/textbook/?textbook_id=<%= result[0].course_id %>"><%= result[0].required_texts %></a></li>
+</ul>
+<a href="/course/all"><< back</a>
+
+<%- include("../includes/footer.ejs"); %>

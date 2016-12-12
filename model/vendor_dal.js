@@ -1,5 +1,5 @@
 var mysql   = require('mysql');
-var db  = require('./../../../Downloads/TextbookWebApp-master/model/db_connection.js');
+var db  = require('./db_connection.js');
 
 /* DATABASE CONFIGURATION */
 var connection = mysql.createConnection(db.config);
