@@ -12,7 +12,7 @@ var connection = mysql.createConnection(db.config);
  */
 
 exports.getAll = function(callback) {
-    var query = 'SELECT * FROM course;';
+    var query = 'SELECT * FROM course';
 
     connection.query(query, function(err, result) {
         callback(err, result);
@@ -20,7 +20,10 @@ exports.getAll = function(callback) {
 };
 
 exports.getById = function(course_id, callback) {
-    var query = 'SELECT * FROM course WHERE course_id = ?';
+    var query = 'SELECT c.*, tc.textbook_id FROM course c' +
+                ' JOIN textbook_course tc ON tc.course_id = c.course_id' +
+                ' WHERE tc.course_id = ?';
+
     var queryData = [course_id];
     console.log(query);
 
@@ -54,38 +57,42 @@ exports.getPrices = function(vendor_id, callback) {
 
 exports.insert = function(params, callback) {
 
-    // FIRST INSERT THE COMPANY
-    var query = 'INSERT INTO company (company_name) VALUES (?)';
+    // FIRST INSERT THE course
+    var query = 'INSERT INTO student_course (student_id, course_id) VALUES (?, ?)';
+    console.log(params);
+    var queryData = [params.student_id, course_id];
 
-    var queryData = [params.company_name];
+    connection.query(query, queryData, function(err, result) {
 
-    connection.query(query, params.company_name, function(err, result) {
-
-        // THEN USE THE COMPANY_ID RETURNED AS insertId AND THE SELECTED ADDRESS_IDs INTO COMPANY_ADDRESS
-        var company_id = result.insertId;
-
-        // NOTE THAT THERE IS ONLY ONE QUESTION MARK IN VALUES ?
-        var query = 'INSERT INTO company_address (company_id, address_id) VALUES ?';
-
-        // TO BULK INSERT AN ARRAY OF VALUES WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
-        var companyAddressData = [];
-        // if only one value is submitted, JavaScript will treat the value as an array, so we skip it if its not an array
-        // for example if the value of params.address_id was "10", it would loop over the "1" and then the "0", instead of
-        // treating it as one value.
-        if(params.address_id instanceof Array) {
-            for(var i=0; i < params.address_id.length; i++) {
-                companyAddressData.push([company_id, params.address_id[i]]);
-            }
-        }
-        else {
-            companyAddressData.push([company_id, params.address_id]);
-        }
-
-        // NOTE THE EXTRA [] AROUND companyAddressData
-        connection.query(query, [companyAddressData], function(err, result){
-            callback(err, result);
-        });
+        callback(err, result);
     });
+    // connection.query(query, params.company_name, function(err, result) {
+    //
+    //     // THEN USE THE COMPANY_ID RETURNED AS insertId AND THE SELECTED ADDRESS_IDs INTO COMPANY_ADDRESS
+    //     var company_id = result.insertId;
+    //
+    //     // NOTE THAT THERE IS ONLY ONE QUESTION MARK IN VALUES ?
+    //     var query = 'INSERT INTO company_address (company_id, address_id) VALUES ?';
+    //
+    //     // TO BULK INSERT AN ARRAY OF VALUES WE CREATE A MULTIDIMENSIONAL ARRAY OF THE VALUES
+    //     var companyAddressData = [];
+    //     // if only one value is submitted, JavaScript will treat the value as an array, so we skip it if its not an array
+    //     // for example if the value of params.address_id was "10", it would loop over the "1" and then the "0", instead of
+    //     // treating it as one value.
+    //     if(params.address_id instanceof Array) {
+    //         for(var i=0; i < params.address_id.length; i++) {
+    //             companyAddressData.push([company_id, params.address_id[i]]);
+    //         }
+    //     }
+    //     else {
+    //         companyAddressData.push([company_id, params.address_id]);
+    //     }
+    //
+    //     // NOTE THE EXTRA [] AROUND companyAddressData
+    //     connection.query(query, [companyAddressData], function(err, result){
+    //         callback(err, result);
+    //     });
+    // });
 
 };
 /*

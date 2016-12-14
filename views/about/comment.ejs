@@ -1,0 +1,8 @@
+<%- include("../includes/header.ejs", {title:"comment - Add"}); %>
+<h1>Add A New Comment</h1>
+<form action="/about/insert" method="get">
+    Comment: </br> <input id="comment" name="comment" type="text" />
+    </br>
+    <input type="submit" />
+</form>
+<%- include("../includes/footer.ejs"); %>

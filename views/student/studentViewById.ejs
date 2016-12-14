@@ -2,22 +2,28 @@
 <h1>Students</h1>
 <ul>
     <li>Name: <%= result[0].first_name + ' ' + result[0].last_name %></li>
-    <li>Email: <%= result[0].first_name + ' ' + result[0].last_name %></li>
-    <li>ISBN: <%= result[0].ISBN %></li>
-    <li>Prices:
+    <li>Email: <%= result[0].email%></li>
+    <li>Courses:
         <table border="1">
-            <tr><th>Vendor</th><th>Website</th><th>Price</th><th>Shipping</th></tr>
-            <% for(var i=0; vendor.length > i; i++ ) { %>
+            <tr><th>Course Name</th><th>Course Number</th><th>Instructor</th><th>Actions</th></tr>
+            <% for(var i=0; result.length > i; i++ ) { %>
             <tr>
-                <td><a href="/vendor/?vendor_id=<%= vendor[i].vendor_id %>"><%= vendor[i].vendor_name %></a></td>
-                <td><%=vendor[i].website%></td>
-                <td><%=vendor[i].price%></td>
-                <td><%=vendor[i].shipping%></td>
+                <td><a href="/course/?course_id=<%= result[i].result_id %>"><%= result[i].class_name %></a></td>
+                <td><%=result[i].class_number%></td>
+                <td><%=result[i].instructor%></td>
+                <td> <!--TODO NOT DONE YET BRO -->
+                    <form action="/student/delete/" style="display:inline;">
+                        <input type="hidden" name="course_id" id="course_id" value="<%= result[i].course_id %>" />
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
             </tr>
             <% } %>
         </table>
     </li>
 </ul>
-<a href="/textbook/all"><< back</a>
+</br>
+
+<button onclick="event.preventDefault();window.location.href='/student/all'"><< Back</button>
 
 <%- include("../includes/footer.ejs"); %>

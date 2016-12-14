@@ -1,7 +1,6 @@
-<%- include("../includes/header.ejs", {title:"Vendor - View All"}); %>
+<%- include("../includes/header.ejs", {title:"Vendors"}); %>
 
-<h1>Vendor</h1>
-<a href="/vendor/add">Add New Seller</a> <br />
+<h1>Vendors</h1>
 
 <br />
 
@@ -14,4 +13,7 @@
     </tr>
     <% } %>
 </table>
+</br>
+
+<button onclick="event.preventDefault();window.location.href='/'"><< Back</button>
 <%- include("../includes/footer.ejs"); %>

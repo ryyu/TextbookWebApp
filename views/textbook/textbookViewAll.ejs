@@ -1,7 +1,6 @@
-<%- include("../includes/header.ejs", {title:"Textbook - View All"}); %>
+<%- include("../includes/header.ejs", {title:"Textbooks"}); %>
 
-<h1>Courses</h1>
-<a href="/Textbook/add">Add New Textbook</a> <br />
+<h1>Textbooks</h1>
 
 <br />
 
@@ -11,14 +10,12 @@
     <tr>
         <td><a href="/textbook/?textbook_id=<%= result[i].textbook_id %>"><%= result[i].title %></a></td>
         <td><%=result[i].edition%></td>
-        <td>
-            <button onclick="event.preventDefault();window.location.href='/textbook/edit/?textbook_id=<%= result[i].textbook_id %>'">Edit</button>
-            <form action="/textbook/delete/" style="display:inline">
-                <input type="hidden" name="textbook_id" id="textbook_id" value="<%= result[i].textbook_id %>" />
-                <input type="submit" value="Delete"/>
-            </form>
-        </td>
     </tr>
     <% } %>
 </table>
+
+</br>
+
+<button onclick="event.preventDefault();window.location.href='/'"><< Back</button>
+
 <%- include("../includes/footer.ejs"); %>

@@ -1,0 +1,38 @@
+<%- include("../includes/header.ejs", {title:"About"}); %>
+
+<h1>About</h1>
+
+<br />
+<body>
+    <p>
+        I created this website because I, like most people, like to save money. <br/>
+        As a student, one of my biggest expenses each semester is all of the textbooks <br/>
+        you are required to buy. In most cases, these $150 textbooks sat unused on my desk <br/>
+        for the entire semester! What a waste! So I thought, if only there was an easy way to <br/>
+        research who has the best prices on all of my textbook. <br/>
+        So to make your life easier, you can use this webapp to easily check the prices of <br/>
+        certain textbooks from all of the top online and retail booksellers. <br/>
+        The hard part is finding someone to buy all of your like new textbooks at the end of <br/>
+        semester. Stay tuned, that functionality may be coming soon. <br/>
+    </p>
+<h1>Contact Info </h1>
+    <p>
+        Ryan Yu <br />
+        aku@textbooks.com <br />
+        (408)555-8323 <br />
+        <a href="https://github.com/ryyu"> https://github.com/ryyu </a><br />
+    </p>
+<h1>Comments</h1>
+    <table border="1">
+        <tr><th>Comment</th></tr>
+        <% for(var i=0; result.length > i; i++ ) { %>
+        <tr>
+            <td><%=result[i].comment%></td>
+        </tr>
+        <% } %>
+    </table>
+    <button onclick="event.preventDefault();window.location.href='/about/comment'">Submit A Comment</button>
+</body>
+<br />
+<button onclick="event.preventDefault();window.location.href='/'"><< Back</button>
+<%- include("../includes/footer.ejs"); %>

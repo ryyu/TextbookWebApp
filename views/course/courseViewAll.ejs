@@ -1,7 +1,6 @@
-<%- include("../includes/header.ejs", {title:"Course - View All"}); %>
+<%- include("../includes/header.ejs", {title:"Courses"}); %>
 
 <h1>Courses</h1>
-<a href="/Course/add">Add A New Course</a> <br />
 
 <br />
 
@@ -15,4 +14,7 @@
     </tr>
     <% } %>
 </table>
+</br>
+
+<button onclick="event.preventDefault();window.location.href='/'"><< Back</button>
 <%- include("../includes/footer.ejs"); %>

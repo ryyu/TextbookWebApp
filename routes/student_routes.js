@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var student_dal = require('../model/student_dal');
-
+var course_dal = require('../model/course_dal');
 
 // View All Students
 router.get('/all', function (req, res)
@@ -29,8 +29,7 @@ router.get('/', function(req, res)
     }
     else
     {
-        student_dal.getById(req.query.student_id, function(err,result)
-        {
+        student_dal.getById(req.query.student_id, function(err,result) {
             if (err)
             {
                 res.send(err);
@@ -46,55 +45,59 @@ router.get('/', function(req, res)
 // Return the add a new account form
 router.get('/add', function(req, res){
     // passing all the query parameters (req.query) to the insert function instead of each individually
-    account_dal.getAll(function(err,result) {
+    student_dal.getAll(function(err,result) {
+        course_dal.getAll(function(err,course) {
         if (err) {
             res.send(err);
         }
         else {
-            res.render('account/accountAdd', {'account': result});
+            res.render('student/studentAdd', {'student': result,
+                                              'course': course});
+
         }
+        });
     });
 });
 
-// insert a account record
+// insert a student record
 router.get('/insert', function(req, res){
     // simple validation
-    if(req.query.email== null) {
-        res.send('Account Email must be provided.');
+    if(req.query.email == null) {
+        res.send('Student Email must be provided.');
     }
     else if(req.query.first_name == null) {
-        res.send('An First Name must be selected');
+        res.send('A First Name must be selected');
     }
     else if(req.query.last_name == null) {
-        res.send('An Last Name must be selected');
+        res.send('A Last Name must be selected');
     }
     else {
         // passing all the query parameters (req.query) to the insert function instead of each individually
-        account_dal.insert(req.query, function(err,result) {
-            if (err) {
-                res.send(err);
-            }
-            else {
-                //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/account/all');
-            }
-        });
+        student_dal.insert(req.query, function(err,result) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+                    //poor practice, but we will handle it differently once we start using Ajax
+                    res.redirect(302, '/student/all');
+                }
+            });
     }
 });
 
 // Delete a account for the given account_id
 router.get('/delete', function(req, res){
-    if(req.query.account_id == null) {
-        res.send('account_id is null');
+    if(req.query.course_id == null) {
+        res.send('course_id is null');
     }
     else {
-        account_dal.delete(req.query.account_id, function(err, result){
+        student_dal.deleteCourse(req.query.course_id, function(err, result){
             if(err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/account/all');
+                res.redirect(302, '/student/all');
             }
         });
     }
