@@ -1,7 +1,7 @@
 <%- include("../includes/header.ejs", {title:"Course - View All"}); %>
 
 <h1>Courses</h1>
-<a href="/Course/add">Add New Course</a> <br />
+<a href="/Course/add">Add A New Course</a> <br />
 
 <br />
 
@@ -12,14 +12,6 @@
         <td><a href="/course/?course_id=<%= result[i].course_id %>"><%= result[i].class_name %></a></td>
         <td><%=result[i].class_number%></td>
         <td><%=result[i].instructor%></td>
-        <td>
-            <button onclick="event.preventDefault();window.location.href='/course/edit/?course_id=<%= result[i].coures_id %>'">Edit</button>
-            <form action="/course/delete/" style="display:inline">
-                <input type="hidden" name="course_id" id="course_id" value="<%= result[i].course_id %>" />
-                <input type="submit" value="Delete"/>
-            </form>
-
-        </td>
     </tr>
     <% } %>
 </table>

@@ -1,0 +1,24 @@
+<%- include("../includes/header.ejs", {title:"Textbook - View All"}); %>
+
+<h1>Courses</h1>
+<a href="/Textbook/add">Add New Textbook</a> <br />
+
+<br />
+
+<table border="1">
+    <tr><th>Title</th><th>Edition</th></tr>
+    <% for(var i=0; result.length > i; i++ ) { %>
+    <tr>
+        <td><a href="/textbook/?textbook_id=<%= result[i].textbook_id %>"><%= result[i].title %></a></td>
+        <td><%=result[i].edition%></td>
+        <td>
+            <button onclick="event.preventDefault();window.location.href='/textbook/edit/?textbook_id=<%= result[i].textbook_id %>'">Edit</button>
+            <form action="/textbook/delete/" style="display:inline">
+                <input type="hidden" name="textbook_id" id="textbook_id" value="<%= result[i].textbook_id %>" />
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+    <% } %>
+</table>
+<%- include("../includes/footer.ejs"); %>

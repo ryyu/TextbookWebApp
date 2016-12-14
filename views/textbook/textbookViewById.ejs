@@ -1,0 +1,31 @@
+<%- include("../includes/header.ejs", {title:"Textbook - " + result[0].title}); %>
+<h1>Textbooks</h1>
+<ul>
+    <li>Title: <%= result[0].title %></li>
+    <li>Author(s):
+        <%var string = '';%>
+        <% for(var i=0; result.length > i; i++ ) { %>
+            <% string += result[i].author; %>
+            <%if(i != result.length - 1) {%>
+                <%string+= ' , '; }%>
+        <% } %>
+        <%=string %>
+    </li>
+    <li>ISBN: <%= result[0].ISBN %></li>
+    <li>Prices:
+        <table border="1">
+            <tr><th>Vendor</th><th>Website</th><th>Price</th><th>Shipping</th></tr>
+            <% for(var i=0; vendor.length > i; i++ ) { %>
+            <tr>
+                <td><a href="/vendor/?vendor_id=<%= vendor[i].vendor_id %>"><%= vendor[i].vendor_name %></a></td>
+                <td><%=vendor[i].website%></td>
+                <td><%=vendor[i].price%></td>
+                <td><%=vendor[i].shipping%></td>
+            </tr>
+            <% } %>
+        </table>
+    </li>
+</ul>
+<a href="/textbook/all"><< back</a>
+
+<%- include("../includes/footer.ejs"); %>

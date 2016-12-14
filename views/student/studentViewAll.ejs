@@ -1,0 +1,18 @@
+<%- include("../includes/header.ejs", {title:"Student - View All"}); %>
+
+<h1>Student</h1>
+<a href="/student/add">Add A New Student</a> <br />
+
+<br />
+
+<table border="1">
+    <tr><th>Name</th><th>Email</th><th>ID Number</tr>
+    <% for(var i=0; result.length > i; i++ ) { %>
+    <tr>
+        <td><a href="/student/?student_id=<%= result[i].student_id %>"><%= result[i].first_name + ' ' + result[i].last_name %></a></td>
+        <td><%=result[i].email%></td>
+        <td><%=result[i].id_number%></td>
+    </tr>
+    <% } %>
+</table>
+<%- include("../includes/footer.ejs"); %>

@@ -1,0 +1,17 @@
+<%- include("../includes/header.ejs", {title:"Vendor - View All"}); %>
+
+<h1>Vendor</h1>
+<a href="/vendor/add">Add New Seller</a> <br />
+
+<br />
+
+<table border="1">
+    <tr><th>Vendor Name</th><th>Website</th></tr>
+    <% for(var i=0; result.length > i; i++ ) { %>
+    <tr>
+        <td><a href="/vendor/?vendor_id=<%= result[i].vendor_id %>"><%= result[i].vendor_name %></a></td>
+        <td><%=result[i].website%></td>
+    </tr>
+    <% } %>
+</table>
+<%- include("../includes/footer.ejs"); %>

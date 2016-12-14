@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var vendor_dal = require('../model/vendor_dal');
-//var address_dal = require('../model/address_dal');
+
 
 
 // View All companys
