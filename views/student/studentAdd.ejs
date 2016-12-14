@@ -1,19 +1,23 @@
 <%- include("../includes/header.ejs", {title:"Student - Add"}); %>
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/"> Home </a> /
+    <a class="breadcrumb-item" href="/student/all"> Students </a> / Add New Student
+</nav>
 <h1>Add New Student</h1>
 <form action="/student/insert" method="get">
-    Student Email: </br> <input id="email" name="email" type="text" />
-    </br>
-    </br>
-    First Name: </br> <input id="first_name" name="first_name" type="text" />
-    </br>
-    </br>
-    Last Name: </br> <input id="last_name" name="last_name" type="text" />
-    </br>
-    </br>
-    Student ID: </br> <input id="id_number" name="id_number" type="int" />
-    </br>
-    </br>
-    Courses Student is Enorlled in: </br>
+    Student Email: <br /> <input id="email" name="email" type="text" />
+    <br />
+    <br />
+    First Name: <br /> <input id="first_name" name="first_name" type="text" />
+    <br />
+    <br />
+    Last Name: <br /> <input id="last_name" name="last_name" type="text" />
+    <br />
+    <br />
+    Student ID: <br /> <input id="id_number" name="id_number" type="text" />
+    <br />
+    <br />
+    Courses Student is Enorlled in: <br />
 
     <select id="course_id" name="course_id" type="int" multiple="multiple">
         <% for(var i=0; course.length > i; i++ ) { %>
@@ -27,8 +31,8 @@
         });
     </script>
 
-    </br>
-    </br>
+    <br />
+    <br />
     <input type="submit" />
 
 </form>

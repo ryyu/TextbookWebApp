@@ -78,9 +78,9 @@ exports.insert = function(params, callback) {
     });
 };
 
-exports.deleteCourse = function(course_id, callback) {
-    var query = 'DELETE FROM student_course WHERE student_id = ?, course_id = ?';
-    var queryData = [course_id];
+exports.deleteCourse = function(params, callback) {
+    var query = 'DELETE FROM student_course WHERE student_id = ? and course_id = ?';
+    var queryData = [params.student_id, params.course_id];
     
     connection.query(query, queryData, function(err, result) {
         callback(err, result);

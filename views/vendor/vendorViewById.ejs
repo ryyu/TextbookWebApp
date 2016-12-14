@@ -1,8 +1,12 @@
 <%- include("../includes/header.ejs", {title:"Vendor - " + result[0].vendor_name}); %>
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/"> Home </a> /
+    <a class="breadcrumb-item" href="/vendor/all"> Vendors </a> / <%= result[0].vendor_name%>
+</nav>
 <h1>Vendor</h1>
 <ul>
     <li>Vendor Name: <%= result[0].vendor_name %></li>
-    <li>Vendor Website: <a href="http://<%= result[0].website %>"/><%= result[0].website %></li>
+    <li>Vendor Website: <a href="http://<%= result[0].website %>"><%= result[0].website %></a></li>
 
 </ul>
 </br>

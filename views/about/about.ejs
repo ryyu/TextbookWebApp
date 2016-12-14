@@ -1,5 +1,9 @@
 <%- include("../includes/header.ejs", {title:"About"}); %>
 
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/"> Home </a> / About
+</nav>
+
 <h1>About</h1>
 
 <br />
@@ -24,15 +28,23 @@
     </p>
 <h1>Comments</h1>
     <table border="1">
-        <tr><th>Comment</th></tr>
+        <tr><th>Comment</th><th>Actions</th></tr>
         <% for(var i=0; result.length > i; i++ ) { %>
         <tr>
             <td><%=result[i].comment%></td>
+            <td>
+                <form action="/about/delete/" style="display:inline;">
+                    <input type="hidden" name="comment_id" id="comment_id" value="<%= result[i].comment_id %>" />
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
         </tr>
         <% } %>
     </table>
+    <br />
     <button onclick="event.preventDefault();window.location.href='/about/comment'">Submit A Comment</button>
 </body>
+<br />
 <br />
 <button onclick="event.preventDefault();window.location.href='/'"><< Back</button>
 <%- include("../includes/footer.ejs"); %>

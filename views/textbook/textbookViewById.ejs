@@ -1,4 +1,8 @@
 <%- include("../includes/header.ejs", {title:"Textbook - " + result[0].title}); %>
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/"> Home </a> /
+    <a class="breadcrumb-item" href="/textbook/all"> Textbooks </a> / <%= result[0].title%>
+</nav>
 <h1>Textbooks</h1>
 <ul>
     <li>Title: <%= result[0].title %></li>

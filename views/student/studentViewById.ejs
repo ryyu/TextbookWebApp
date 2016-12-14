@@ -1,4 +1,8 @@
 <%- include("../includes/header.ejs", {title:"Student - " + result[0].id_number}); %>
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/"> Home </a> /
+    <a class="breadcrumb-item" href="/student/all"> Students </a> / <%= result[0].first_name + ' ' + result[0].last_name%>
+</nav>
 <h1>Students</h1>
 <ul>
     <li>Name: <%= result[0].first_name + ' ' + result[0].last_name %></li>
@@ -11,8 +15,9 @@
                 <td><a href="/course/?course_id=<%= result[i].result_id %>"><%= result[i].class_name %></a></td>
                 <td><%=result[i].class_number%></td>
                 <td><%=result[i].instructor%></td>
-                <td> <!--TODO NOT DONE YET BRO -->
+                <td>
                     <form action="/student/delete/" style="display:inline;">
+                        <input type="hidden" name="student_id" id="student_id" value="<%= result[0].student_id %>" />
                         <input type="hidden" name="course_id" id="course_id" value="<%= result[i].course_id %>" />
                         <input type="submit" value="Delete"/>
                     </form>

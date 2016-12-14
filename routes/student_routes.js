@@ -91,13 +91,13 @@ router.get('/delete', function(req, res){
         res.send('course_id is null');
     }
     else {
-        student_dal.deleteCourse(req.query.course_id, function(err, result){
+        student_dal.deleteCourse(req.query, function(err, result){
             if(err) {
                 res.send(err);
             }
             else {
                 //poor practice, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/student/all');
+                res.redirect(302, '/student/?student_id=' + req.query.student_id);
             }
         });
     }

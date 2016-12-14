@@ -50,4 +50,22 @@ router.get('/insert', function(req, res){
     }
 });
 
+// Delete a company for the given company_id
+router.get('/delete', function(req, res){
+    if(req.query.comment_id == null) {
+        res.send('comment_id is null');
+    }
+    else {
+        comment_dal.delete(req.query.comment_id, function(err, result){
+            if(err) {
+                res.send(err);
+            }
+            else {
+                //poor practice, but we will handle it differently once we start using Ajax
+                res.redirect(302, '/about/about');
+            }
+        });
+    }
+});
+
 module.exports = router;

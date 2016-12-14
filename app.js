@@ -6,13 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var school = require('./routes/school_routes');
-var account = require('./routes/account_routes');
-var resume = require('./routes/resume_routes');
-var company = require('./routes/company_routes');
-var address = require('./routes/address_routes');
-var skill = require('./routes/skill_routes');
-
 var textbook = require('./routes/textbook_routes');
 var vendor = require('./routes/vendor_routes');
 var course = require('./routes/course_routes');
@@ -36,13 +29,6 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/school', school);
-app.use('/account', account);
-app.use('/resume', resume);
-app.use('/company', company);
-app.use('/address', address);
-app.use('/skill', skill);
-
 app.use('/textbook', textbook);
 app.use('/vendor', vendor);
 app.use('/course', course);
