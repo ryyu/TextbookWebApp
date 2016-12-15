@@ -43,7 +43,7 @@ router.get('/', function(req, res)
     }
 });
 
-// Return the add a new account form
+// Return the add a new student form
 router.get('/add', function(req, res){
     // passing all the query parameters (req.query) to the insert function instead of each individually
     student_dal.getAll(function(err,result) {
@@ -79,14 +79,13 @@ router.get('/insert', function(req, res){
                     res.send(err);
                 }
                 else {
-                    //poor practice, but we will handle it differently once we start using Ajax
                     res.redirect(302, '/student/all');
                 }
             });
     }
 });
 
-// Delete a account for the given account_id
+// Delete a course for the given student_id
 router.get('/delete', function(req, res){
     if(req.query.course_id == null) {
         res.send('course_id is null');
@@ -97,7 +96,6 @@ router.get('/delete', function(req, res){
                 res.send(err);
             }
             else {
-                //poor practice, but we will handle it differently once we start using Ajax
                 res.redirect(302, '/student/?student_id=' + req.query.student_id);
             }
         });

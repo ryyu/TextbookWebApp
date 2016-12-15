@@ -39,13 +39,8 @@ exports.getById = function(course_id, callback) {
  JOIN vendor v ON v.vendor_id = vt.vendor_id;
  */
 
-
-//DOES NOT WORK. MAKE INTO A VIEW
 exports.getPrices = function(vendor_id, callback) {
     var query = 'SELECT * FROM vendor_prices WHERE textbook_id = ?';
-    // var query = 'SELECT vt.* , v.vendor_name FROM vendor_textbook vt' +
-    //     'JOIN vendor v ON v.vendor_id = vt.vendor_id' +
-    //     'WHERE vt.textbook_id = ?';
     var queryData = [vendor_id];
     console.log(query);
 
@@ -56,8 +51,6 @@ exports.getPrices = function(vendor_id, callback) {
 };
 
 exports.insert = function(params, callback) {
-
-    // FIRST INSERT THE course
     var query = 'INSERT INTO student_course (student_id, course_id) VALUES (?, ?)';
     console.log(params);
     var queryData = [params.student_id, course_id];

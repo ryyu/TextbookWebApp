@@ -3,8 +3,6 @@ var router = express.Router();
 var textbook_dal = require('../model/textbook_dal');
 var vendor_dal = require('../model/vendor_dal');
 
-
-// View All textbooks
 router.get('/all', function(req, res) {
     textbook_dal.getAll(function(err, result) {
         if(err) {
@@ -17,7 +15,6 @@ router.get('/all', function(req, res) {
 
 });
 
-// View the company for the given id
 router.get('/', function(req, res){
     if(req.query.textbook_id == null) {
         res.send('textbook_id is null');

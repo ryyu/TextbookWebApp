@@ -16,7 +16,7 @@ router.get('/all', function(req, res) {
     });
 });
 
-// View the company for the given id
+// View the course for the given id
 router.get('/', function(req, res){
     if(req.query.course_id == null) {
         res.send('course_id is null');

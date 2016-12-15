@@ -37,13 +37,11 @@ router.get('/insert', function(req, res){
         res.send('A comment must be provided.');
     }
     else {
-        // passing all the query parameters (req.query) to the insert function instead of each individually
         comment_dal.insert(req.query, function(err,result) {
             if (err) {
                 res.send(err);
             }
             else {
-                //poor practice, but we will handle it differently once we start using Ajax
                 res.redirect(302, '/about/about');
             }
         });
@@ -61,7 +59,6 @@ router.get('/delete', function(req, res){
                 res.send(err);
             }
             else {
-                //poor practice, but we will handle it differently once we start using Ajax
                 res.redirect(302, '/about/about');
             }
         });

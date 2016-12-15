@@ -13,8 +13,6 @@ exports.getAll = function(callback) {
 };
 
 exports.insert = function(params, callback) {
-
-    // FIRST INSERT THE course
     var query = 'INSERT INTO comments (comment) VALUES (?)';
     var queryData = [params.comment];
 
