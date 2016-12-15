@@ -50,7 +50,7 @@ router.get('/insert', function(req, res){
     }
 });
 
-// Delete a company for the given company_id
+// Delete a comment for the given comment_id
 router.get('/delete', function(req, res){
     if(req.query.comment_id == null) {
         res.send('comment_id is null');
@@ -66,6 +66,16 @@ router.get('/delete', function(req, res){
             }
         });
     }
+});
+
+// render er diagram
+router.get('/textbookER', function(req, res) {
+    res.render('about/textbookER');
+});
+
+// render rs
+router.get('/textbookRS', function(req, res) {
+    res.render('about/textbookRS');
 });
 
 module.exports = router;
