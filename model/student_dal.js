@@ -20,6 +20,21 @@ exports.getAll = function(callback)
  SELECT s.*, c.* FROM student s
  JOIN student_course sc ON sc.student_id = s.student_id
  JOIN course c ON c.course_id = sc.course_id;
+
+ DROP Procedure if exists student_getCourses;
+
+ DELIMITER //
+ CREATE PROCEDURE student_getCourses (_student_id varchar(255))
+ BEGIN
+
+ SELECT * FROM student_courses WHERE student_id = _student_id;
+
+ END //
+ DELIMITER ; 
+
+ # Call the Stored Procedure
+ CALL student_getCourses (?);
+
  */
 
 exports.getById = function(student_id, callback)
@@ -33,16 +48,6 @@ exports.getById = function(student_id, callback)
     });
 };
 
-exports.getCourses = function(student_id, callback)
-{
-    var query = 'SELECT * FROM account WHERE account_id = ?';
-    var queryData = [account_id];
-
-    connection.query(query, queryData, function(err, result)
-    {
-        callback(err, result);
-    });
-};
 
 exports.insert = function(params, callback) {
     var query = 'INSERT INTO student (email, first_name, last_name, id_number) VALUES (?, ?, ?, ?)';

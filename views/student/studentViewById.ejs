@@ -12,7 +12,7 @@
             <tr><th>Course Name</th><th>Course Number</th><th>Instructor</th><th>Actions</th></tr>
             <% for(var i=0; result.length > i; i++ ) { %>
             <tr>
-                <td><a href="/course/?course_id=<%= result[i].result_id %>"><%= result[i].class_name %></a></td>
+                <td><a href="/course/?course_id=<%= result[i].course_id %>"><%= result[i].class_name %></a></td>
                 <td><%=result[i].class_number%></td>
                 <td><%=result[i].instructor%></td>
                 <td>
