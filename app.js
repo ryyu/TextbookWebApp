@@ -12,7 +12,6 @@ var course = require('./routes/course_routes');
 var student = require('./routes/student_routes');
 var about = require('./routes/about');
 
-
 var app = express();
 
 // view engine setup
@@ -28,12 +27,14 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', index);
 app.use('/textbook', textbook);
 app.use('/vendor', vendor);
 app.use('/course', course);
 app.use('/student', student);
 app.use('/about', about);
+app.use(express.static('public/images'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

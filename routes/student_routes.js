@@ -36,7 +36,8 @@ router.get('/', function(req, res)
             }
             else
             {
-                res.render('student/studentViewById', {'result': result});
+                console.log(result);
+                res.render('student/studentViewById', {'result': result[0]});
             }
         });
     }

@@ -34,12 +34,15 @@ exports.getAll = function(callback)
 
  # Call the Stored Procedure
  CALL student_getCourses (?);
+ 'SELECT * FROM student_courses WHERE student_id = ?';
+SELECT * FROM student WHERE IN (SELECT * FROM courses WHERE student_id = ?);
 
  */
 
 exports.getById = function(student_id, callback)
 {
-    var query = 'SELECT * FROM student_courses WHERE student_id = ?';
+    //var query = 'SELECT * FROM student_courses WHERE student_id = ?';
+    var query = 'call student_getCourses(?)';
     var queryData = [student_id];
 
     connection.query(query, queryData, function(err, result)
